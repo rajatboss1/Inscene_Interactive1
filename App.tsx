@@ -12,9 +12,9 @@ const HEART_BEATS_DATA = {
   tagline: 'Your choices define your rhythm.',
   thumbnail: "https://lh3.googleusercontent.com/d/11oMmLSZFpeZsoGxw2uV_bPEWJB4-fvDx",
   avatars: {
-    // Verified GitHub Release URLs - Adding unique query strings to force refresh
-    Priyank: "https://github.com/rajatboss1/plivetv/releases/download/Video/PriyankDP.jpg",
-    Arzoo: "https://github.com/rajatboss1/plivetv/releases/download/Video/ArzooDP.jpg"
+    // Adding cache-busting and ensuring clean URLs
+    Priyank: "https://github.com/rajatboss1/plivetv/releases/download/Video/PriyankDP.jpg?v=2025",
+    Arzoo: "https://github.com/rajatboss1/plivetv/releases/download/Video/ArzooDP.jpg?v=2025"
   },
   episodes: [
     { 
@@ -104,7 +104,6 @@ const ReelItem: React.FC<{
         onTimeUpdate={handleTimeUpdate}
       />
 
-      {/* Modern Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/80 pointer-events-none" />
 
       {loading && (
@@ -113,7 +112,6 @@ const ReelItem: React.FC<{
         </div>
       )}
 
-      {/* REEL INFO & INTERACTIVE DOCK */}
       <div className="absolute bottom-0 left-0 right-0 p-8 pb-10 flex flex-col gap-6 pointer-events-none z-30">
         <div className="flex items-center gap-3">
           <div className="h-[2px] w-8 bg-blue-500 rounded-full shadow-[0_0_8px_#3b82f6]" />
@@ -140,7 +138,6 @@ const ReelItem: React.FC<{
                     alt={trigger.char} 
                     className="w-full h-full object-cover"
                     referrerPolicy="no-referrer"
-                    crossOrigin="anonymous"
                     onError={() => handleImgError(trigger.char)}
                   />
                 ) : (
@@ -155,7 +152,6 @@ const ReelItem: React.FC<{
         </div>
       </div>
 
-      {/* SIDE CONTROLS */}
       <div className="absolute right-6 bottom-32 flex flex-col gap-4 items-center z-30">
         <button 
           onClick={(e) => { e.stopPropagation(); toggleMute(); }} 
@@ -212,7 +208,6 @@ const App: React.FC = () => {
   return (
     <div className="flex flex-col min-h-screen text-white bg-gradient-to-br from-indigo-950 via-slate-950 to-purple-950 font-sans selection:bg-blue-500/30 overflow-x-hidden">
       
-      {/* HEADER */}
       <header className={`fixed top-0 left-0 right-0 z-[1000] px-6 md:px-10 py-6 md:py-8 flex justify-between items-center transition-all duration-700 ${view === 'feed' ? 'bg-gradient-to-b from-black/80 to-transparent' : ''}`}>
         <div className="flex items-center gap-3 md:gap-4 cursor-pointer group active:scale-95 transition-transform" onClick={() => { setView('home'); setChatData(null); }}>
           <Logo size={36} isPulsing={view === 'home'} />
@@ -231,7 +226,6 @@ const App: React.FC = () => {
         )}
       </header>
 
-      {/* HOME VIEW */}
       {view === 'home' && (
         <main className="flex-1 flex flex-col items-center justify-center p-6 pt-28 md:pt-36 animate-slide-up relative min-h-screen">
           <div className="w-full max-w-lg">
@@ -271,7 +265,6 @@ const App: React.FC = () => {
         </main>
       )}
 
-      {/* FEED VIEW */}
       {view === 'feed' && (
         <div 
           ref={feedRef}
@@ -291,7 +284,6 @@ const App: React.FC = () => {
         </div>
       )}
 
-      {/* CHAT OVERLAY */}
       {chatData && (
         <ChatPanel 
           character={chatData.char} 
@@ -302,7 +294,6 @@ const App: React.FC = () => {
         />
       )}
 
-      {/* FOOTER */}
       {view === 'home' && (
         <footer className="mt-auto px-8 md:px-12 py-12 md:py-16 flex flex-col md:flex-row justify-between items-center gap-10 border-t border-white/5 bg-black/10">
           <div className="flex flex-col items-center md:items-start">
