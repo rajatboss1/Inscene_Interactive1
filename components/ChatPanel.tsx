@@ -6,10 +6,11 @@ interface ChatPanelProps {
   character: 'Priyank' | 'Arzoo';
   episodeLabel: string;
   initialHook: string;
+  avatar: string;
   onClose: () => void;
 }
 
-const ChatPanel: React.FC<ChatPanelProps> = ({ character, episodeLabel, initialHook, onClose }) => {
+const ChatPanel: React.FC<ChatPanelProps> = ({ character, episodeLabel, initialHook, avatar, onClose }) => {
   const [messages, setMessages] = useState<{ role: 'user' | 'model'; text: string }[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -81,10 +82,16 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ character, episodeLabel, initialH
         {/* Chat Header */}
         <div className={`px-8 py-6 flex justify-between items-center border-b border-white/5 bg-gradient-to-r ${accentGradient}`}>
           <div className="flex items-center gap-4">
-            <div className={`relative w-12 h-12 rounded-full flex items-center justify-center font-black text-lg border-2 shadow-2xl transition-transform hover:scale-105 ${character === 'Priyank' ? 'bg-blue-500/20 border-blue-500/50 text-blue-400' : 'bg-purple-500/20 border-purple-500/50 text-purple-400'}`}>
-              {character[0]}
+            <div className={`relative w-14 h-14 rounded-full p-0.5 border-2 shadow-2xl transition-transform hover:scale-105 active:scale-95`} style={{ borderColor: `${accentColor}80` }}>
+              <div className="w-full h-full rounded-full overflow-hidden bg-white/5">
+                <img 
+                  src={avatar} 
+                  alt={character} 
+                  className="w-full h-full object-cover"
+                />
+              </div>
               {/* Pulse Indicator */}
-              <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 border-2 border-black rounded-full animate-pulse shadow-[0_0_10px_#22c55e]" />
+              <div className="absolute top-0 right-0 w-4 h-4 bg-green-500 border-2 border-black rounded-full animate-pulse shadow-[0_0_10px_#22c55e] z-10" />
             </div>
             <div>
               <div className="flex items-center gap-2 mb-1">

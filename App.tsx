@@ -11,6 +11,11 @@ const HEART_BEATS_DATA = {
   title: 'Heart Beats',
   tagline: 'Your choices define your rhythm.',
   thumbnail: "https://lh3.googleusercontent.com/d/11oMmLSZFpeZsoGxw2uV_bPEWJB4-fvDx",
+  avatars: {
+    // Using high-quality placeholders for the characters
+    Priyank: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=200&h=200",
+    Arzoo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200&h=200"
+  },
   episodes: [
     { 
       id: 1, 
@@ -112,7 +117,7 @@ const ReelItem: React.FC<{
           <span className="text-sm font-black tracking-[0.3em] text-white/90 uppercase">{episode.label}</span>
         </div>
 
-        {/* INTERACTIVE DOCK - Repositioned horizontally to save vertical space */}
+        {/* INTERACTIVE DOCK */}
         <div className="flex flex-wrap gap-3 pointer-events-auto">
           {episode.triggers.map((trigger, idx) => (
             <button 
@@ -126,8 +131,12 @@ const ReelItem: React.FC<{
                 boxShadow: trigger.char === 'Priyank' ? '0 8px 32px -8px rgba(59, 130, 246, 0.5)' : '0 8px 32px -8px rgba(168, 85, 247, 0.5)'
               }}
             >
-              <div className={`w-7 h-7 rounded-full flex items-center justify-center font-black text-[9px] text-white ${trigger.char === 'Priyank' ? 'bg-blue-600' : 'bg-purple-600'}`}>
-                {trigger.char[0]}
+              <div className="w-7 h-7 rounded-full overflow-hidden border border-white/20">
+                <img 
+                  src={HEART_BEATS_DATA.avatars[trigger.char as 'Priyank' | 'Arzoo']} 
+                  alt={trigger.char} 
+                  className="w-full h-full object-cover"
+                />
               </div>
               <span className="text-[10px] font-black uppercase tracking-[0.1em] text-white">
                 {trigger.label}
@@ -244,7 +253,6 @@ const App: React.FC = () => {
                 </div>
              </div>
 
-             {/* Meta info below card */}
              <div className="mt-12 md:mt-16 flex flex-col items-center gap-6">
                <div className="flex items-center gap-5 md:gap-8 opacity-40 text-[9px] md:text-[10px] font-black tracking-[0.5em] uppercase">
                  <span>4 Episodes</span>
@@ -284,6 +292,7 @@ const App: React.FC = () => {
           character={chatData.char} 
           episodeLabel={HEART_BEATS_DATA.episodes[activeIdx].label}
           initialHook={chatData.hook}
+          avatar={HEART_BEATS_DATA.avatars[chatData.char]}
           onClose={() => setChatData(null)}
         />
       )}
