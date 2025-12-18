@@ -12,9 +12,9 @@ const HEART_BEATS_DATA = {
   tagline: 'Your choices define your rhythm.',
   thumbnail: "https://lh3.googleusercontent.com/d/11oMmLSZFpeZsoGxw2uV_bPEWJB4-fvDx",
   avatars: {
-    // Using high-quality placeholders for the characters
-    Priyank: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=200&h=200",
-    Arzoo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200&h=200"
+    // Character Profile Pictures
+    Priyank: "https://github.com/rajatboss1/plivetv/releases/download/Video/PriyankDP.jpg",
+    Arzoo: "https://github.com/rajatboss1/plivetv/releases/download/Video/ArzooDP.jpg"
   },
   episodes: [
     { 
