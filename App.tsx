@@ -16,8 +16,8 @@ const HEART_BEATS_DATA = {
     // 1. images.weserv.nl (Canonical domain)
     // 2. Fully URL-encoded GitHub paths (Safe parsing)
     // 3. n=-1 (Follows infinite redirects for Release assets)
-    // 4. t=v3 (Force cache refresh)
-    Priyank: "https://images.weserv.nl/?url=https%3A%2F%2Fgithub.com%2Frajatboss1%2Fplivetv%2Freleases%2Fdownload%2FVideo%2FPriyankDP.jpg&w=400&h=400&fit=cover&output=jpg&n=-1&t=v3",
+    // 4. t=final (Force cache refresh for new Priyank image)
+    Priyank: "https://images.weserv.nl/?url=https%3A%2F%2Fgithub.com%2Frajatboss1%2Fplivetv%2Freleases%2Fdownload%2FVideo%2FPriyank_DP_Final.jpg&w=400&h=400&fit=cover&output=jpg&n=-1&t=final",
     Arzoo: "https://images.weserv.nl/?url=https%3A%2F%2Fgithub.com%2Frajatboss1%2Fplivetv%2Freleases%2Fdownload%2FVideo%2FArzooDP.jpg&w=400&h=400&fit=cover&output=jpg&n=-1&t=v3"
   },
   episodes: [
