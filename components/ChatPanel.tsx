@@ -87,10 +87,12 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ character, episodeLabel, initialH
               <div className="w-full h-full rounded-full overflow-hidden flex items-center justify-center bg-white/5">
                 {!imgError ? (
                   <img 
+                    key={avatar}
                     src={avatar} 
                     alt={character} 
                     className="w-full h-full object-cover"
                     referrerPolicy="no-referrer"
+                    crossOrigin="anonymous"
                     onError={() => setImgError(true)}
                   />
                 ) : (

@@ -12,9 +12,13 @@ const HEART_BEATS_DATA = {
   tagline: 'Your choices define your rhythm.',
   thumbnail: "https://lh3.googleusercontent.com/d/11oMmLSZFpeZsoGxw2uV_bPEWJB4-fvDx",
   avatars: {
-    // Fixed typo in Arzoo URL encoding (%2F was missing F) and added timestamp to force fresh proxy cache
-    Priyank: "https://images.weserv.nl/?url=https%3A%2F%2Fgithub.com%2Frajatboss1%2Fplivetv%2Freleases%2Fdownload%2FVideo%2FPriyankDP.jpg&w=400&h=400&fit=cover&output=jpg&t=fix1",
-    Arzoo: "https://images.weserv.nl/?url=https%3A%2F%2Fgithub.com%2Frajatboss1%2Fplivetv%2Freleases%2Fdownload%2FVideo%2FArzooDP.jpg&w=400&h=400&fit=cover&output=jpg&t=fix1"
+    // Bulletproof Proxy Config:
+    // 1. images.weserv.nl (Canonical domain)
+    // 2. Fully URL-encoded GitHub paths (Safe parsing)
+    // 3. n=-1 (Follows infinite redirects for Release assets)
+    // 4. t=v3 (Force cache refresh)
+    Priyank: "https://images.weserv.nl/?url=https%3A%2F%2Fgithub.com%2Frajatboss1%2Fplivetv%2Freleases%2Fdownload%2FVideo%2FPriyankDP.jpg&w=400&h=400&fit=cover&output=jpg&n=-1&t=v3",
+    Arzoo: "https://images.weserv.nl/?url=https%3A%2F%2Fgithub.com%2Frajatboss1%2Fplivetv%2Freleases%2Fdownload%2FVideo%2FArzooDP.jpg&w=400&h=400&fit=cover&output=jpg&n=-1&t=v3"
   },
   episodes: [
     { 
@@ -134,10 +138,12 @@ const ReelItem: React.FC<{
               <div className={`w-7 h-7 rounded-full overflow-hidden border border-white/20 flex items-center justify-center text-[10px] font-bold ${trigger.char === 'Priyank' ? 'bg-blue-600' : 'bg-purple-600'}`}>
                 {!imgErrors[trigger.char] ? (
                   <img 
+                    key={HEART_BEATS_DATA.avatars[trigger.char as 'Priyank' | 'Arzoo']}
                     src={HEART_BEATS_DATA.avatars[trigger.char as 'Priyank' | 'Arzoo']} 
                     alt={trigger.char} 
                     className="w-full h-full object-cover"
                     referrerPolicy="no-referrer"
+                    crossOrigin="anonymous"
                     loading="eager"
                     onError={() => handleImgError(trigger.char)}
                   />
