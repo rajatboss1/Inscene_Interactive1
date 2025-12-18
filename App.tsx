@@ -12,9 +12,9 @@ const HEART_BEATS_DATA = {
   tagline: 'Your choices define your rhythm.',
   thumbnail: "https://lh3.googleusercontent.com/d/11oMmLSZFpeZsoGxw2uV_bPEWJB4-fvDx",
   avatars: {
-    // Adding cache-busting and ensuring clean URLs
-    Priyank: "https://github.com/rajatboss1/plivetv/releases/download/Video/PriyankDP.jpg?v=2025",
-    Arzoo: "https://github.com/rajatboss1/plivetv/releases/download/Video/ArzooDP.jpg?v=2025"
+    // Using wsrv.nl proxy to bypass GitHub release hotlinking/CORS issues on Vercel
+    Priyank: "https://wsrv.nl/?url=https://github.com/rajatboss1/plivetv/releases/download/Video/PriyankDP.jpg&w=400&h=400&fit=cover",
+    Arzoo: "https://wsrv.nl/?url=https://github.com/rajatboss1/plivetv/releases/download/Video/ArzooDP.jpg&w=400&h=400&fit=cover"
   },
   episodes: [
     { 
@@ -137,7 +137,6 @@ const ReelItem: React.FC<{
                     src={HEART_BEATS_DATA.avatars[trigger.char as 'Priyank' | 'Arzoo']} 
                     alt={trigger.char} 
                     className="w-full h-full object-cover"
-                    referrerPolicy="no-referrer"
                     onError={() => handleImgError(trigger.char)}
                   />
                 ) : (
