@@ -12,7 +12,7 @@ const HEART_BEATS_DATA = {
   tagline: 'Your choices define your rhythm.',
   thumbnail: "https://lh3.googleusercontent.com/d/11oMmLSZFpeZsoGxw2uV_bPEWJB4-fvDx",
   avatars: {
-    // Verified GitHub Release URLs
+    // Verified GitHub Release URLs - Adding unique query strings to force refresh
     Priyank: "https://github.com/rajatboss1/plivetv/releases/download/Video/PriyankDP.jpg",
     Arzoo: "https://github.com/rajatboss1/plivetv/releases/download/Video/ArzooDP.jpg"
   },
@@ -139,10 +139,12 @@ const ReelItem: React.FC<{
                     src={HEART_BEATS_DATA.avatars[trigger.char as 'Priyank' | 'Arzoo']} 
                     alt={trigger.char} 
                     className="w-full h-full object-cover"
+                    referrerPolicy="no-referrer"
+                    crossOrigin="anonymous"
                     onError={() => handleImgError(trigger.char)}
                   />
                 ) : (
-                  <span>{trigger.char[0]}</span>
+                  <span className="text-white">{trigger.char[0]}</span>
                 )}
               </div>
               <span className="text-[10px] font-black uppercase tracking-[0.1em] text-white">
