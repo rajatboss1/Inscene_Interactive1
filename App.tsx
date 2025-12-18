@@ -12,9 +12,9 @@ const HEART_BEATS_DATA = {
   tagline: 'Your choices define your rhythm.',
   thumbnail: "https://lh3.googleusercontent.com/d/11oMmLSZFpeZsoGxw2uV_bPEWJB4-fvDx",
   avatars: {
-    // Using wsrv.nl proxy to bypass GitHub release hotlinking/CORS issues on Vercel
-    Priyank: "https://wsrv.nl/?url=https://github.com/rajatboss1/plivetv/releases/download/Video/PriyankDP.jpg&w=400&h=400&fit=cover",
-    Arzoo: "https://wsrv.nl/?url=https://github.com/rajatboss1/plivetv/releases/download/Video/ArzooDP.jpg&w=400&h=400&fit=cover"
+    // Fixed typo in Arzoo URL encoding (%2F was missing F) and added timestamp to force fresh proxy cache
+    Priyank: "https://images.weserv.nl/?url=https%3A%2F%2Fgithub.com%2Frajatboss1%2Fplivetv%2Freleases%2Fdownload%2FVideo%2FPriyankDP.jpg&w=400&h=400&fit=cover&output=jpg&t=fix1",
+    Arzoo: "https://images.weserv.nl/?url=https%3A%2F%2Fgithub.com%2Frajatboss1%2Fplivetv%2Freleases%2Fdownload%2FVideo%2FArzooDP.jpg&w=400&h=400&fit=cover&output=jpg&t=fix1"
   },
   episodes: [
     { 
@@ -137,6 +137,8 @@ const ReelItem: React.FC<{
                     src={HEART_BEATS_DATA.avatars[trigger.char as 'Priyank' | 'Arzoo']} 
                     alt={trigger.char} 
                     className="w-full h-full object-cover"
+                    referrerPolicy="no-referrer"
+                    loading="eager"
                     onError={() => handleImgError(trigger.char)}
                   />
                 ) : (

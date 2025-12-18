@@ -90,6 +90,7 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ character, episodeLabel, initialH
                     src={avatar} 
                     alt={character} 
                     className="w-full h-full object-cover"
+                    referrerPolicy="no-referrer"
                     onError={() => setImgError(true)}
                   />
                 ) : (
