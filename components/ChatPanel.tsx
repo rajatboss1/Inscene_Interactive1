@@ -14,6 +14,7 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ character, episodeLabel, initialH
   const [messages, setMessages] = useState<{ role: 'user' | 'model'; text: string }[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [imgError, setImgError] = useState(false);
   const chatInstance = useRef<Chat | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -82,15 +83,19 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ character, episodeLabel, initialH
         {/* Chat Header */}
         <div className={`px-8 py-6 flex justify-between items-center border-b border-white/5 bg-gradient-to-r ${accentGradient}`}>
           <div className="flex items-center gap-4">
-            <div className={`relative w-14 h-14 rounded-full p-0.5 border-2 shadow-2xl transition-transform hover:scale-105 active:scale-95`} style={{ borderColor: `${accentColor}80` }}>
-              <div className="w-full h-full rounded-full overflow-hidden bg-white/5">
-                <img 
-                  src={avatar} 
-                  alt={character} 
-                  className="w-full h-full object-cover"
-                />
+            <div className={`relative w-14 h-14 rounded-full p-0.5 border-2 shadow-2xl transition-transform hover:scale-105 active:scale-95 flex items-center justify-center text-lg font-black ${character === 'Priyank' ? 'bg-blue-600' : 'bg-purple-600'}`} style={{ borderColor: `${accentColor}80` }}>
+              <div className="w-full h-full rounded-full overflow-hidden flex items-center justify-center bg-white/5">
+                {!imgError ? (
+                  <img 
+                    src={avatar} 
+                    alt={character} 
+                    className="w-full h-full object-cover"
+                    onError={() => setImgError(true)}
+                  />
+                ) : (
+                  <span className="text-white">{character[0]}</span>
+                )}
               </div>
-              {/* Pulse Indicator */}
               <div className="absolute top-0 right-0 w-4 h-4 bg-green-500 border-2 border-black rounded-full animate-pulse shadow-[0_0_10px_#22c55e] z-10" />
             </div>
             <div>

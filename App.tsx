@@ -12,7 +12,7 @@ const HEART_BEATS_DATA = {
   tagline: 'Your choices define your rhythm.',
   thumbnail: "https://lh3.googleusercontent.com/d/11oMmLSZFpeZsoGxw2uV_bPEWJB4-fvDx",
   avatars: {
-    // Character Profile Pictures
+    // Verified GitHub Release URLs
     Priyank: "https://github.com/rajatboss1/plivetv/releases/download/Video/PriyankDP.jpg",
     Arzoo: "https://github.com/rajatboss1/plivetv/releases/download/Video/ArzooDP.jpg"
   },
@@ -66,6 +66,7 @@ const ReelItem: React.FC<{
   const videoRef = useRef<HTMLVideoElement>(null);
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
+  const [imgErrors, setImgErrors] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     if (videoRef.current) {
@@ -83,6 +84,10 @@ const ReelItem: React.FC<{
       const p = (videoRef.current.currentTime / videoRef.current.duration) * 100;
       setProgress(p || 0);
     }
+  };
+
+  const handleImgError = (char: string) => {
+    setImgErrors(prev => ({ ...prev, [char]: true }));
   };
 
   return (
@@ -108,16 +113,13 @@ const ReelItem: React.FC<{
         </div>
       )}
 
-      {/* REEL INFO & INTERACTIVE DOCK (Bottom Integrated) */}
+      {/* REEL INFO & INTERACTIVE DOCK */}
       <div className="absolute bottom-0 left-0 right-0 p-8 pb-10 flex flex-col gap-6 pointer-events-none z-30">
-        
-        {/* Episode Info */}
         <div className="flex items-center gap-3">
           <div className="h-[2px] w-8 bg-blue-500 rounded-full shadow-[0_0_8px_#3b82f6]" />
           <span className="text-sm font-black tracking-[0.3em] text-white/90 uppercase">{episode.label}</span>
         </div>
 
-        {/* INTERACTIVE DOCK */}
         <div className="flex flex-wrap gap-3 pointer-events-auto">
           {episode.triggers.map((trigger, idx) => (
             <button 
@@ -131,12 +133,17 @@ const ReelItem: React.FC<{
                 boxShadow: trigger.char === 'Priyank' ? '0 8px 32px -8px rgba(59, 130, 246, 0.5)' : '0 8px 32px -8px rgba(168, 85, 247, 0.5)'
               }}
             >
-              <div className="w-7 h-7 rounded-full overflow-hidden border border-white/20">
-                <img 
-                  src={HEART_BEATS_DATA.avatars[trigger.char as 'Priyank' | 'Arzoo']} 
-                  alt={trigger.char} 
-                  className="w-full h-full object-cover"
-                />
+              <div className={`w-7 h-7 rounded-full overflow-hidden border border-white/20 flex items-center justify-center text-[10px] font-bold ${trigger.char === 'Priyank' ? 'bg-blue-600' : 'bg-purple-600'}`}>
+                {!imgErrors[trigger.char] ? (
+                  <img 
+                    src={HEART_BEATS_DATA.avatars[trigger.char as 'Priyank' | 'Arzoo']} 
+                    alt={trigger.char} 
+                    className="w-full h-full object-cover"
+                    onError={() => handleImgError(trigger.char)}
+                  />
+                ) : (
+                  <span>{trigger.char[0]}</span>
+                )}
               </div>
               <span className="text-[10px] font-black uppercase tracking-[0.1em] text-white">
                 {trigger.label}
@@ -146,7 +153,7 @@ const ReelItem: React.FC<{
         </div>
       </div>
 
-      {/* DISCRETE SIDE CONTROLS */}
+      {/* SIDE CONTROLS */}
       <div className="absolute right-6 bottom-32 flex flex-col gap-4 items-center z-30">
         <button 
           onClick={(e) => { e.stopPropagation(); toggleMute(); }} 
@@ -225,7 +232,6 @@ const App: React.FC = () => {
       {/* HOME VIEW */}
       {view === 'home' && (
         <main className="flex-1 flex flex-col items-center justify-center p-6 pt-28 md:pt-36 animate-slide-up relative min-h-screen">
-          
           <div className="w-full max-w-lg">
              <div 
                className="relative group cursor-pointer aspect-square rounded-[2.5rem] md:rounded-[3.5rem] overflow-hidden border border-white/10 shadow-[0_50px_100px_rgba(0,0,0,0.8)]"
@@ -233,8 +239,6 @@ const App: React.FC = () => {
              >
                 <img src={HEART_BEATS_DATA.thumbnail} className="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110" alt="Heart Beats" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent" />
-                
-                {/* Centered Play Prompt */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 bg-blue-500/10 backdrop-blur-[6px]">
                    <div className="w-20 h-20 md:w-28 md:h-28 rounded-full bg-white/10 backdrop-blur-2xl border border-white/30 flex items-center justify-center transform scale-75 group-hover:scale-100 transition-transform duration-500">
                       <svg viewBox="0 0 24 24" fill="currentColor" className="w-10 h-10 md:w-12 md:h-12 ml-1 text-white"><path d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347c-.75.412-1.667-.13-1.667-.986V5.653z" /></svg>
@@ -242,7 +246,6 @@ const App: React.FC = () => {
                    <p className="mt-8 text-[10px] md:text-[11px] font-black tracking-[0.6em] uppercase text-white shadow-2xl">Start Experience</p>
                 </div>
 
-                {/* Card Title Info */}
                 <div className="absolute bottom-8 md:bottom-12 left-8 md:left-12 right-8 md:right-12 flex flex-col items-start pointer-events-none group-hover:opacity-0 transition-opacity">
                    <div className="flex items-center gap-2 mb-3">
                      <div className="h-1 w-8 bg-blue-500 rounded-full" />
@@ -266,7 +269,7 @@ const App: React.FC = () => {
         </main>
       )}
 
-      {/* REELS FEED VIEW */}
+      {/* FEED VIEW */}
       {view === 'feed' && (
         <div 
           ref={feedRef}
